@@ -1,0 +1,44 @@
+plugins {
+	id 'java'
+  	id 'io.freefair.lombok' version '8.1.0'
+	id 'org.springframework.boot' version '3.1.1'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.empyrean.elide'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+    elide = "6.1.12"
+}
+
+dependencies {
+	//Runtime Only
+	runtimeOnly("com.h2database:h2:2.1.214")
+
+	implementation "com.yahoo.elide:elide-spring-boot-starter:${elide}"
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation "org.springframework.boot:spring-boot-starter-security"
+	implementation "net.rakugakibox.spring.boot:logback-access-spring-boot-starter:2.7.1"
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
